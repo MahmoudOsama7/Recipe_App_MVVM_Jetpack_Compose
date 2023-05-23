@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/recipeListFragment"
-        android:name="com.codingwithmitch.mvvmrecipeapp.ui.recipe_list.RecipeListFragment"
+        android:name="com.codingwithmitch.mvvmrecipeapp.RecipeListFragment"
         android:label="RecipeListFragment">
         <action
             android:id="@+id/viewRecipe"
@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/recipeFragment"
-        android:name="com.codingwithmitch.mvvmrecipeapp.ui.recipe.RecipeFragment"
+        android:name="com.codingwithmitch.mvvmrecipeapp.RecipeFragment"
         android:label="RecipeFragment">
     </fragment>
 </navigation>
