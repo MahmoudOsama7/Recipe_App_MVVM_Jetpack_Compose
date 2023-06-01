@@ -3,7 +3,7 @@ package com.codingwithmitch.mvvmrecipeapp.network.model
 import com.google.gson.annotations.SerializedName
 
 
-data class RecipeNetworkEntity(
+data class RecipeDto(
     @SerializedName("pk")
     var pk:Int?=null,
     @SerializedName("title")

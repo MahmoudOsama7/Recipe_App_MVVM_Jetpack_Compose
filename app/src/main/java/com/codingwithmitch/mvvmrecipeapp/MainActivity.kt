@@ -3,8 +3,8 @@ package com.codingwithmitch.mvvmrecipeapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.codingwithmitch.mvvmrecipeapp.domain.model.Recipe
-import com.codingwithmitch.mvvmrecipeapp.network.model.RecipeNetworkEntity
-import com.codingwithmitch.mvvmrecipeapp.network.model.RecipeNetworkMapper
+import com.codingwithmitch.mvvmrecipeapp.network.model.RecipeDto
+import com.codingwithmitch.mvvmrecipeapp.network.model.RecipeDtoMapper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,12 +15,12 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val mapper=RecipeNetworkMapper()
-        
+        val mapper=RecipeDtoMapper()
+
         val recipe= Recipe()
-        val recipeNetworkEntity=RecipeNetworkEntity()
+        val recipeDto=RecipeDto()
 
         val toNetworkEntity=mapper.mapToEntity(recipe)
-        val fromNetworkEntity=mapper.mapFromEntity(recipeNetworkEntity)
+        val fromNetworkEntity=mapper.mapToDomainModel(recipeDto)
     }
 }
