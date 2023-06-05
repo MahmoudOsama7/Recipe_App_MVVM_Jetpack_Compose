@@ -1,6 +1,7 @@
 package com.codingwithmitch.mvvmrecipeapp.presentation.ui.recipe_list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +11,14 @@ import androidx.compose.ui.Modifier
 
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.codingwithmitch.mvvmrecipeapp.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RecipeListFragment:Fragment() {
-
+    private val viewModel:RecipeListViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,7 +26,10 @@ class RecipeListFragment:Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                Text("He", modifier = Modifier.clickable { findNavController().navigate(R.id.recipeFragment) })
+                val recipes=viewModel.recipes.value
+                for(recipe in recipes){
+                    Log.d("x", "onCreateView: "+recipe.title)
+                }
             }
         }
     }

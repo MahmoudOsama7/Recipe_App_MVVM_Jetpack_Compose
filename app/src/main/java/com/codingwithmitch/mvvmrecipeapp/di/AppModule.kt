@@ -26,13 +26,13 @@ object AppModule {
     @Provides
     @Named("auth_token")
     fun provideRetrofitToken():String{
-        return "Hey Look "
+        return "Token 9c8b06d329136da358c2d00e76946b0111ce2c48"
     }
 
     //token for website food2Fork
     @Singleton
     @Provides
     fun provideRandomStrings():String{
-        return "Token 9c8b06d329136da358c2d00e76946b0111ce2c48"
+        return "Hey Look "
     }
 }
