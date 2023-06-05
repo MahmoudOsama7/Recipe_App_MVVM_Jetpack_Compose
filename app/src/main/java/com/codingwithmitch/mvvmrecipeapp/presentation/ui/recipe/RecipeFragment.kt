@@ -1,4 +1,4 @@
-package com.codingwithmitch.mvvmrecipeapp
+package com.codingwithmitch.mvvmrecipeapp.presentation.ui.recipe
 
 import android.os.Bundle
 import android.view.LayoutInflater

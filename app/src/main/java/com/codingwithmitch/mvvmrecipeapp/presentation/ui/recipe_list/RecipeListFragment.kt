@@ -1,4 +1,4 @@
-package com.codingwithmitch.mvvmrecipeapp
+package com.codingwithmitch.mvvmrecipeapp.presentation.ui.recipe_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.codingwithmitch.mvvmrecipeapp.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
