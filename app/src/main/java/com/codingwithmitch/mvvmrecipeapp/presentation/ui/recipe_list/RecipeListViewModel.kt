@@ -1,12 +1,7 @@
 package com.codingwithmitch.mvvmrecipeapp.presentation.ui.recipe_list
 
-import android.util.Log
-import android.util.LogPrinter
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingwithmitch.mvvmrecipeapp.domain.model.Recipe
@@ -24,15 +19,46 @@ class RecipeListViewModel @Inject constructor(
 ):ViewModel() {
 
     val recipes:MutableState<List<Recipe>> = mutableStateOf(listOf())
+    val query= mutableStateOf("Chicken")
+
+
+    val selectedCategory:MutableState<FoodCategory?> = mutableStateOf(null)
+    var categoryScrollPositionInt=0
 
     init {
+        newSearch()
+    }
+
+    fun newSearch(){
         viewModelScope.launch {
             val result = repository.search(
-                token="Token 9c8b06d329136da358c2d00e76946b0111ce2c48",
+                token=token,
                 page = 1,
-                query="chicken"
+                query=query.value
             )
             recipes.value=result
         }
     }
+    fun onQueryChanged(query:String){
+        this.query.value=query
+    }
+
+    fun onChangeCategoryScrollPosition(position: Int){
+        categoryScrollPositionInt=position
+    }
+
+    fun onSelectedCategoryChanged(category: String){
+        val newCategory= getFoodCategory(category)
+        //if nothing is selected
+        if(selectedCategory.value==null)
+            selectedCategory.value=newCategory
+        //if the same value is selected
+        else if (selectedCategory.value?.value==category)
+            selectedCategory.value=null
+        //if different value is selected
+        else
+            selectedCategory.value=newCategory
+        onQueryChanged(category)
+    }
+
 }
