@@ -13,8 +13,6 @@ import kotlin.math.log
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var someRandomString:String
 
     val viewModel:RecipeListViewModel by viewModels()
 

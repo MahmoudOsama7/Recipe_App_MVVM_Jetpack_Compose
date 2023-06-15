@@ -15,7 +15,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
 
-    @Singleton
+    //no need to mark it as singleton as it does not matter to have any instance
+    //we use this at some classes as retrofit to use the same exact instance we already been using
     @Provides
     fun provideRecipeRepository(
         recipeService: RecipeService,

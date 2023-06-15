@@ -7,11 +7,21 @@ import android.view.ViewGroup
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBalanceWallet
+import androidx.compose.material.icons.filled.BrokenImage
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.codingwithmitch.mvvmrecipeapp.presentation.components.CircularIndeterminateProgressBar
@@ -35,18 +45,28 @@ class RecipeListFragment:Fragment() {
                 val selectedCategory=viewModel.selectedCategory.value
                 val loading =viewModel.loading.value
                 val keyboardController = LocalSoftwareKeyboardController.current
-                Column {
-                    SearchAppBar(
-                        query = query,
-                        onQueryChanged =viewModel::onQueryChanged ,
-                        onExecuteSearch =  viewModel::newSearch ,
-                        keyboardController = keyboardController,
-                        selectedCategory = selectedCategory,
-                        scrollPosition =viewModel.categoryScrollPositionInt ,
-                        onSelectedCategoryChanged =viewModel::onSelectedCategoryChanged ,
-                        onChangeCategoryScrollPosition =viewModel::onChangeCategoryScrollPosition
-                    )
+                val page =viewModel.page.value
+                //we can use Scaffold or not , scaffold is important if your app have many layouts as bottom , top , navDrawer and so on
+                Scaffold(
+                    topBar = {
+                        SearchAppBar(
+                            query = query,
+                            onQueryChanged =viewModel::onQueryChanged ,
+                            onExecuteSearch =  viewModel::newSearch ,
+                            keyboardController = keyboardController,
+                            selectedCategory = selectedCategory,
+                            scrollPosition =viewModel.categoryScrollPositionInt ,
+                            onSelectedCategoryChanged =viewModel::onSelectedCategoryChanged ,
+                            onChangeCategoryScrollPosition =viewModel::onChangeCategoryScrollPosition
+                        )
+                    },
+                    bottomBar = {
+                        MyBottomBar()
+                    },
+                    drawerContent = {
 
+                    }
+                ) {
                     Box(
                         modifier = Modifier.fillMaxSize()
                     ){
@@ -54,6 +74,8 @@ class RecipeListFragment:Fragment() {
                             itemsIndexed(
                                 items = recipes
                             ){ index,recipe->
+                                viewModel.onChangeRecipeScrollPosition(index)
+                                viewModel.nextPage()
                                 RecipeCard(
                                     recipe = recipe,
                                     onClick = {}
@@ -67,5 +89,41 @@ class RecipeListFragment:Fragment() {
                 }
             }
         }
+    }
+}
+
+
+@Composable
+fun MyBottomBar(){
+    BottomNavigation(
+        elevation = 12.dp
+    ) {
+        BottomNavigationItem(
+            icon = {
+                Icon(
+                imageVector = Icons.Filled.BrokenImage,
+                contentDescription = ""
+            )},
+            selected =false ,
+            onClick = {}
+        )
+        BottomNavigationItem(
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.Search,
+                    contentDescription = ""
+                )},
+            selected =true ,
+            onClick = {}
+        )
+        BottomNavigationItem(
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.AccountBalanceWallet,
+                    contentDescription = ""
+                )},
+            selected =false ,
+            onClick = {}
+        )
     }
 }
