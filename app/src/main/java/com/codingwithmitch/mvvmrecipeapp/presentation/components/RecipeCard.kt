@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.codingwithmitch.mvvmrecipeapp.R
 import com.codingwithmitch.mvvmrecipeapp.domain.model.Recipe
+import com.codingwithmitch.mvvmrecipeapp.presentation.theme.AppTheme
 
 @Composable
 fun RecipeCard(
@@ -63,7 +64,7 @@ fun RecipeCard(
                             .fillMaxWidth(0.85f)
                             .wrapContentWidth(Alignment.End)
                             .align(Alignment.CenterVertically),
-                        style = MaterialTheme.typography.h6
+                        style = AppTheme.typography.h1
                     )
                 }
             }

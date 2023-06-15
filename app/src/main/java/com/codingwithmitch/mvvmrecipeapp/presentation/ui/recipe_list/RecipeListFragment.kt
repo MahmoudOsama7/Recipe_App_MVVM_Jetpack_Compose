@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.codingwithmitch.mvvmrecipeapp.presentation.components.CircularIndeterminateProgressBar
 import com.codingwithmitch.mvvmrecipeapp.presentation.components.RecipeCard
 import com.codingwithmitch.mvvmrecipeapp.presentation.components.SearchAppBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +33,7 @@ class RecipeListFragment:Fragment() {
                 val recipes=viewModel.recipes.value
                 val query=viewModel.query.value
                 val selectedCategory=viewModel.selectedCategory.value
+                val loading =viewModel.loading.value
                 val keyboardController = LocalSoftwareKeyboardController.current
                 Column {
                     SearchAppBar(
@@ -43,15 +46,23 @@ class RecipeListFragment:Fragment() {
                         onSelectedCategoryChanged =viewModel::onSelectedCategoryChanged ,
                         onChangeCategoryScrollPosition =viewModel::onChangeCategoryScrollPosition
                     )
-                    LazyColumn{
-                        itemsIndexed(
-                            items = recipes
-                        ){ index,recipe->
-                            RecipeCard(
-                                recipe = recipe,
-                                onClick = {}
-                            )
+
+                    Box(
+                        modifier = Modifier.fillMaxSize()
+                    ){
+                        LazyColumn{
+                            itemsIndexed(
+                                items = recipes
+                            ){ index,recipe->
+                                RecipeCard(
+                                    recipe = recipe,
+                                    onClick = {}
+                                )
+                            }
                         }
+                        CircularIndeterminateProgressBar(
+                            isDisplayed =loading
+                        )
                     }
                 }
             }

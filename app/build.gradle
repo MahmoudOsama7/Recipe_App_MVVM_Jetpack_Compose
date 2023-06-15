@@ -70,6 +70,7 @@ dependencies {
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.material:material-icons-core:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    implementation "androidx.compose.animation:animation:$compose_version"
 
     def compose_constraint = "1.0.0-beta02"
     implementation "androidx.constraintlayout:constraintlayout-compose:$compose_constraint"
