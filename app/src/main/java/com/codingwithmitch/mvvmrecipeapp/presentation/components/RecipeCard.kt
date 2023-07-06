@@ -56,12 +56,12 @@ fun RecipeCard(
                         modifier = Modifier
                             .fillMaxWidth(0.85f)
                             .wrapContentWidth(Alignment.Start),
-                        style = MaterialTheme.typography.h5
+                        style = AppTheme.typography.h5
                     )
                     Text(
                         text = recipe.rating.toString(),
                         modifier = Modifier
-                            .fillMaxWidth(0.85f)
+                            .wrapContentWidth()
                             .wrapContentWidth(Alignment.End)
                             .align(Alignment.CenterVertically),
                         style = AppTheme.typography.h1

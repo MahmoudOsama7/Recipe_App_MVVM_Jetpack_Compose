@@ -17,4 +17,13 @@ class RecipeListUseCase(
             query = query
         )
     }
+
+    suspend fun get(
+        id:Int
+    ):Recipe{
+        return recipeRepository.get(
+            token=token,
+            id = id
+        )
+    }
 }

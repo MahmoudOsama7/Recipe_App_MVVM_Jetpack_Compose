@@ -24,8 +24,10 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.codingwithmitch.mvvmrecipeapp.presentation.components.CircularIndeterminateProgressBar
 import com.codingwithmitch.mvvmrecipeapp.presentation.components.RecipeCard
+import com.codingwithmitch.mvvmrecipeapp.presentation.components.RecipeList
 import com.codingwithmitch.mvvmrecipeapp.presentation.components.SearchAppBar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,7 +47,6 @@ class RecipeListFragment:Fragment() {
                 val selectedCategory=viewModel.selectedCategory.value
                 val loading =viewModel.loading.value
                 val keyboardController = LocalSoftwareKeyboardController.current
-                val page =viewModel.page.value
                 //we can use Scaffold or not , scaffold is important if your app have many layouts as bottom , top , navDrawer and so on
                 Scaffold(
                     topBar = {
@@ -67,25 +68,13 @@ class RecipeListFragment:Fragment() {
 
                     }
                 ) {
-                    Box(
-                        modifier = Modifier.fillMaxSize()
-                    ){
-                        LazyColumn{
-                            itemsIndexed(
-                                items = recipes
-                            ){ index,recipe->
-                                viewModel.onChangeRecipeScrollPosition(index)
-                                viewModel.nextPage()
-                                RecipeCard(
-                                    recipe = recipe,
-                                    onClick = {}
-                                )
-                            }
-                        }
-                        CircularIndeterminateProgressBar(
-                            isDisplayed =loading
-                        )
-                    }
+                    RecipeList(
+                        loading = loading,
+                        recipes = recipes,
+                        onChangeRecipeScrollPosition = viewModel::onChangeRecipeScrollPosition,
+                        nextPage = viewModel::nextPage,
+                        navController = findNavController()
+                    )
                 }
             }
         }
